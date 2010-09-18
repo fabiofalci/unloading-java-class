@@ -1,0 +1,11 @@
+.DS_Store
+*.swp
+*.class
+*.jar
+bin
+CVS
+*.log
+.settings
+.cvsignore
+logs
+*.*~
