@@ -1,0 +1,20 @@
+Problem: restart a swing application for every view change.
+
+Try #1: Java scripting. Very promise but unsuccessful. Maybe next time.
+
+Try #2: Unload java classes, specially view classes, in runtime and reload it.
+
+Do you want to try?
+
+a. Run 'com.application.ui.Main' and open some views.
+b. Go back to your editor (do not close the app) and edit these opened views and compile it.
+c. Reopen views.
+
+How it works?
+Every time you open a view we create a brand new ClassLoader that will always look for
+the class bytes from disk and you will see your modifications.
+
+A ClassLoader for each view? Are you nuts?
+Yeah, i know, this is why i use it only in development.
+But remember, ClassLoader is a class, even Class is a class, so both are subject
+to Garbage Collector.

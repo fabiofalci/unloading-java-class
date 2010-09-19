@@ -10,9 +10,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import com.application.ui.views.ViewA;
-import com.application.ui.views.ViewB;
-
 /**
  * @author Fabio Falci
  * 
