@@ -65,6 +65,9 @@ public class Main extends JPanel {
 		frame.setSize(800, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
-
+		
+//		frame = new JFrame("Unloading class");
+//		JFrame frame2 = new JFrame("");
 	}
 }
+

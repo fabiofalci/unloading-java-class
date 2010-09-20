@@ -1,6 +1,7 @@
 package com.application.ui;
 
 import com.application.classloader.ViewClassLoader;
+import com.application.ui.views.ViewA;
 
 /**
  * @author Fabio Falci
@@ -17,16 +18,17 @@ public class ViewLoader {
 	
 	public Object loadView(String name) {
 		Exception ex = null;
-		if (name.startsWith(viewPackage)) {
-			try {
-				return createClassLoader().loadClass(name).newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-				ex = e;
-			}
-		}
+//		if (name.startsWith(viewPackage)) {
+//			try {
+//				return createClassLoader().loadClass(name).newInstance();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				ex = e;
+//			}
+//		}
 		try {
-			return Class.forName(name).newInstance();
+//			return Class.forName(name).newInstance();
+			return new ViewA();
 		} catch (Exception e) {
 			e.printStackTrace();
 			ex = e;
