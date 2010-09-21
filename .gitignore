@@ -9,3 +9,4 @@ CVS
 .cvsignore
 logs
 *.*~
+dist
