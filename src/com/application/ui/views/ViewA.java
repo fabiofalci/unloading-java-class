@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * @author Fabio Falci
@@ -14,6 +15,8 @@ import javax.swing.JPanel;
  */
 public class ViewA extends JPanel {
 
+	private JTabbedPane tabbedPane;
+	
 	public ViewA() {
 		setName("ViewA");
 		add(new JLabel("Test View A"));
@@ -28,5 +31,14 @@ public class ViewA extends JPanel {
 		});
 		add(show);
 		add(new JButton("Close"));
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("Abc ");
+	}
+	
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+		System.out.println(tabbedPane);
 	}
 }

@@ -27,8 +27,8 @@ public class ViewLoader {
 //			}
 //		}
 		try {
-//			return Class.forName(name).newInstance();
-			return new ViewA();
+			return Class.forName(name).newInstance();
+//			return new ViewA();
 		} catch (Exception e) {
 			e.printStackTrace();
 			ex = e;
