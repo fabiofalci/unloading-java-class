@@ -14,31 +14,20 @@ import javax.swing.JTabbedPane;
  *
  */
 public class ViewA extends JPanel {
-
-	private JTabbedPane tabbedPane;
 	
 	public ViewA() {
 		setName("ViewA");
-		add(new JLabel("Test View A"));
+		add(new JLabel("Test View aaaaaa"));
 		
-		JButton show = new JButton("Show");
+		JButton show = new JButton("Show aaaaa");
 		show.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(ViewA.this, "Test A");
+				JOptionPane.showMessageDialog(ViewA.this, "Test aaaa");
 			}
 		});
 		add(show);
 		add(new JButton("Close"));
-	}
-	
-	public static void main(String[] args) {
-		System.out.println("Abc ");
-	}
-	
-	public void setTabbedPane(JTabbedPane tabbedPane) {
-		this.tabbedPane = tabbedPane;
-		System.out.println(tabbedPane);
 	}
 }

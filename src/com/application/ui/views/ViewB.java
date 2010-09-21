@@ -16,14 +16,14 @@ public class ViewB extends JPanel {
 
 	public ViewB() {
 		setName("ViewB");
-		add(new JLabel("Test View B2"));
+		add(new JLabel("Test View B5"));
 		
-		JButton show = new JButton("Show");
+		JButton show = new JButton("Show5");
 		show.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(ViewB.this, "Test B2");
+				JOptionPane.showMessageDialog(ViewB.this, "Test B5");
 			}
 		});
 		add(show);

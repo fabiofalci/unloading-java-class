@@ -28,7 +28,7 @@ public class Main extends JPanel {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Views");
 		
-		JMenuItem menuItem = new JMenuItem("View A");
+		JMenuItem menuItem = new JMenuItem("View C");
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener() {
 			@Override
@@ -63,11 +63,8 @@ public class Main extends JPanel {
 		frame = new JFrame("Unloading class");
 		frame.setContentPane(new Main());
 		frame.setSize(800, 400);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-//		frame = new JFrame("Unloading class");
-//		JFrame frame2 = new JFrame("");
 	}
 }
 
