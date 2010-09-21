@@ -1,6 +1,8 @@
 package instrument;
 
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -11,7 +13,6 @@ import java.util.List;
 import org.apache.commons.jci.listeners.FileChangeListener;
 import org.apache.commons.jci.monitor.FilesystemAlterationListener;
 import org.apache.commons.jci.monitor.FilesystemAlterationMonitor;
-import org.apache.commons.jci.monitor.FilesystemAlterationObserver;
 
 import com.application.classloader.ViewClassLoader;
 
@@ -21,15 +22,13 @@ import com.application.classloader.ViewClassLoader;
  */
 public class SimpleTransformer implements ClassFileTransformer {
 
-	private ViewClassLoader viewClassLoader = new ViewClassLoader("bin",
-			"testing");
-
 	private final FilesystemAlterationMonitor fam = new FilesystemAlterationMonitor();
 
 	private List<Class<?>> reloaded = new ArrayList<Class<?>>();
 
 	private boolean first = true;
-	private boolean first2 = true;
+
+	private String classesDir = "bin/";
 
 	public SimpleTransformer() {
 		super();
@@ -46,7 +45,7 @@ public class SimpleTransformer implements ClassFileTransformer {
 			try {
 				String filename = className.replace('.', File.separatorChar)
 						+ ".class";
-				byte[] b = viewClassLoader.loadClassData(filename);
+				byte[] b = loadClassData(filename);
 				if (redefiningClass != null) {
 					reloaded.add(redefiningClass);
 				}
@@ -60,19 +59,23 @@ public class SimpleTransformer implements ClassFileTransformer {
 
 	private void startNotifier() {
 		final FilesystemAlterationListener listener = new FileChangeListener() {
-			public void onStop(FilesystemAlterationObserver pObserver) {
-				super.onStop(pObserver);
+			@Override
+			public void onFileChange(File pFile) {
+				super.onFileChange(pFile);
 				if (first) {
 					first = false;
 					return;
 				}
 				if (hasChanged()) {
-					System.out.println("CHANGE!");
+					String fileName = pFile.toString();
+					System.out.println("CHANGE! " + fileName);
+					String name = fileName.substring(classesDir.length());
+					name = name.replace("/", ".");
+					name = name.substring(0, name.lastIndexOf("."));
 					try {
-						Class<?>[] c = reloaded.toArray(new Class<?>[reloaded
-								.size()]);
-
-						SimpleMain.staticInstrumentation.retransformClasses(c);
+						Class<?> reload = Class.forName(name);
+						SimpleMain.staticInstrumentation
+								.retransformClasses(reload);
 						reloaded.clear();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -81,32 +84,32 @@ public class SimpleTransformer implements ClassFileTransformer {
 			}
 		};
 
-		fam.addListener(new File("bin"), listener);
-		
-		final FilesystemAlterationListener listener2 = new FileChangeListener() {
-			public void onStop(FilesystemAlterationObserver pObserver) {
-				super.onStop(pObserver);
-				if (first2) {
-					first2 = false;
-					return;
-				}
-				if (hasChanged()) {
-					System.out.println("CHANGE2!");
-					try {
-						Class<?>[] c = reloaded.toArray(new Class<?>[reloaded
-								.size()]);
-
-						SimpleMain.staticInstrumentation.retransformClasses(c);
-						reloaded.clear();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-
-		fam.addListener( new File("war/WEB-INF/classes"), listener2);		
-		
+		fam.addListener(new File(classesDir), listener);
 		fam.start();
+	}
+
+	public byte[] loadClassData(String filename) throws IOException {
+
+		// Create a file object relative to directory provided
+		File f = new File(classesDir, filename);
+
+		// Get size of class file
+		int size = (int) f.length();
+
+		// Reserve space to read
+		byte buff[] = new byte[size];
+
+		// Get stream to read from
+		FileInputStream fis = new FileInputStream(f);
+		DataInputStream dis = new DataInputStream(fis);
+
+		// Read in data
+		dis.readFully(buff);
+
+		// close stream
+		dis.close();
+
+		// return data
+		return buff;
 	}
 }

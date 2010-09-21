@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/commons-jci-core-1.0.jar" sourcepath="/home/frodrigues/.m2/repository/org/apache/commons/commons-jci-core/1.0/commons-jci-core-1.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/commons-jci-fam-1.0.jar" sourcepath="/home/frodrigues/.m2/repository/org/apache/commons/commons-jci-fam/1.0/commons-jci-fam-1.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/commons-jci-fam-1.0.jar" sourcepath="/Users/fabio/Dev/lib/commons-jcl/commons-jci-1.0-src/fam/src/main/java"/>
 	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
