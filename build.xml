@@ -1,0 +1,16 @@
+<project name="unloading-java-class" default="dist" basedir=".">
+  
+	<target name="dist">
+		<mkdir dir="dist"/>
+		 <jar destfile="dist/instrumentation.jar">
+		    <fileset dir="bin"
+		             includes="instrument/*.class"
+		    />
+		    <manifest>
+		      <attribute name="Premain-Class"
+		            value="instrument.SimpleMain"/>
+		    </manifest>
+		  </jar>
+	</target>
+
+</project>

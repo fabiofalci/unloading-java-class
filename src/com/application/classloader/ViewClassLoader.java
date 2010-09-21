@@ -58,7 +58,7 @@ public class ViewClassLoader extends ClassLoader {
 		return c;
 	}
 
-	private byte[] loadClassData(String filename) throws IOException {
+	public byte[] loadClassData(String filename) throws IOException {
 
 		// Create a file object relative to directory provided
 		File f = new File(root, filename);
