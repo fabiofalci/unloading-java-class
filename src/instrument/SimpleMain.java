@@ -11,7 +11,8 @@ public class SimpleMain {
 
 	public static void premain(String agentArguments,
 			Instrumentation instrumentation) {
-		instrumentation.addTransformer(new SimpleTransformer(), true);
+		String[] args = agentArguments.split(":");
+		instrumentation.addTransformer(new SimpleTransformer(args[0], args[1]), true);
 		staticInstrumentation = instrumentation;
 	}
 }

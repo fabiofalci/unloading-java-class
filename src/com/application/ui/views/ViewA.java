@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 /**
  * @author Fabio Falci
@@ -16,18 +15,18 @@ import javax.swing.JTabbedPane;
 public class ViewA extends JPanel {
 	
 	public ViewA() {
-		setName("ViewA");
-		add(new JLabel("Test View"));
+		setName("ViewA333");
+		add(new JLabel("Test ViewA2"));
 		
-		JButton show = new JButton("ShowA3.3");
+		JButton show = new JButton("ShowA2");
 		show.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(ViewA.this, "Test4");
+				JOptionPane.showMessageDialog(ViewA.this, "Test2");
 			}
 		});
 		add(show);
-		add(new JButton("Close"));
+//		add(new JButton("Close"));
 	}
 }

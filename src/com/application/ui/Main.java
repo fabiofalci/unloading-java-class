@@ -28,7 +28,7 @@ public class Main extends JPanel {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Views");
 		
-		JMenuItem menuItem = new JMenuItem("View C");
+		JMenuItem menuItem = new JMenuItem("View A1");
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener() {
 			@Override

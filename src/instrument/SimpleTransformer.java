@@ -7,14 +7,10 @@ import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.jci.listeners.FileChangeListener;
 import org.apache.commons.jci.monitor.FilesystemAlterationListener;
 import org.apache.commons.jci.monitor.FilesystemAlterationMonitor;
-
-import com.application.classloader.ViewClassLoader;
 
 /**
  * @author Fabio Falci
@@ -24,32 +20,30 @@ public class SimpleTransformer implements ClassFileTransformer {
 
 	private final FilesystemAlterationMonitor fam = new FilesystemAlterationMonitor();
 
-	private List<Class<?>> reloaded = new ArrayList<Class<?>>();
-
 	private boolean first = true;
 
 	private String classesDir = "bin/";
+	private String reloadPackage;
 
-	public SimpleTransformer() {
+	public SimpleTransformer(String classesDir, String reloadPackage) {
 		super();
-
+		this.classesDir = classesDir;
+		if (!this.classesDir.endsWith("/")) {
+			this.classesDir = this.classesDir + "/";
+		}
+		this.reloadPackage = reloadPackage;
 		startNotifier();
 	}
 
 	public byte[] transform(ClassLoader loader, String className,
 			Class redefiningClass, ProtectionDomain domain, byte[] bytes)
 			throws IllegalClassFormatException {
-		if (!reloaded.contains(className)
-				&& className.startsWith("com/mypackage")) {
+		if (className.startsWith(reloadPackage)) {
 			System.out.println("Redefining " + className);
 			try {
 				String filename = className.replace('.', File.separatorChar)
 						+ ".class";
-				byte[] b = loadClassData(filename);
-				if (redefiningClass != null) {
-					reloaded.add(redefiningClass);
-				}
-				return b;
+				return loadClassData(filename);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -76,7 +70,6 @@ public class SimpleTransformer implements ClassFileTransformer {
 						Class<?> reload = Class.forName(name);
 						SimpleMain.staticInstrumentation
 								.retransformClasses(reload);
-						reloaded.clear();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -89,27 +82,13 @@ public class SimpleTransformer implements ClassFileTransformer {
 	}
 
 	public byte[] loadClassData(String filename) throws IOException {
-
-		// Create a file object relative to directory provided
 		File f = new File(classesDir, filename);
-
-		// Get size of class file
 		int size = (int) f.length();
-
-		// Reserve space to read
 		byte buff[] = new byte[size];
-
-		// Get stream to read from
 		FileInputStream fis = new FileInputStream(f);
 		DataInputStream dis = new DataInputStream(fis);
-
-		// Read in data
 		dis.readFully(buff);
-
-		// close stream
 		dis.close();
-
-		// return data
 		return buff;
 	}
 }
