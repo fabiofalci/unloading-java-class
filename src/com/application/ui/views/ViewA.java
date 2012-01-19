@@ -18,10 +18,9 @@ public class ViewA extends JPanel {
 		setName("ViewA");
 		add(new JLabel("Test View A"));
 		
-		JButton show = new JButton("Show");
+		JButton show = new JButton("Show A1");
 		show.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(ViewA.this, "Test A");
 			}

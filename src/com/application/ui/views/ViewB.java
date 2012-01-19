@@ -21,7 +21,6 @@ public class ViewB extends JPanel {
 		JButton show = new JButton("Show");
 		show.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(ViewB.this, "Test B");
 			}

@@ -10,61 +10,75 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
 /**
  * @author Fabio Falci
  * 
  */
+@Component
 public class Main extends JPanel {
 
 	private ViewArea viewArea;
-	
-	public Main() {
+	private JFrame frame;
+	private JMenuBar menuBar;
+
+	public void start() {
 		buildMenu();
 		viewArea = new ViewArea();
 		setLayout(new BorderLayout());
 		add(viewArea.getViewComponent());
+		show();
 	}
+
 	private void buildMenu() {
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Views");
-		
+
 		JMenuItem menuItem = new JMenuItem("View A");
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				openViewA();
 			}
 		});
-		
+
 		menuItem = new JMenuItem("View B");
 		menu.add(menuItem);
 		menuItem.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				openViewB();
 			}
 		});
-		
+
 		menuBar.add(menu);
-		frame.setJMenuBar(menuBar);
 	}
-	
+
 	protected void openViewB() {
 		viewArea.open("com.application.ui.views.ViewB");
-		
+
 	}
+
 	protected void openViewA() {
 		viewArea.open("com.application.ui.views.ViewA");
 	}
 
-	static JFrame frame;
-	public static void main(String[] args) {
+	public void show() {
 		frame = new JFrame("Unloading class");
-		frame.setContentPane(new Main());
+		frame.setJMenuBar(menuBar);
+		frame.setContentPane(this);
 		frame.setSize(800, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
+	}
 
+
+	public static void main(String[] args) {
+		ApplicationContext appContext = new ClassPathXmlApplicationContext(
+				"app-context.xml");
+		Main main = appContext.getBean(Main.class);
+		main.start();
 	}
 }

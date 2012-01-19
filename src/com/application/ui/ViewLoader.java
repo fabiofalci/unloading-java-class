@@ -12,7 +12,7 @@ public class ViewLoader {
 	
 	public ClassLoader createClassLoader() {
 		// maybe get rootDir from classe
-		return new ViewClassLoader("./bin", viewPackage);
+		return new ViewClassLoader("./target/classes", viewPackage);
 	}
 	
 	public Object loadView(String name) {
