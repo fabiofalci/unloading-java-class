@@ -7,15 +7,20 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @author Fabio Falci
  *
  */
+@org.springframework.stereotype.Component
 public class ViewArea {
 
 	private List<JPanel> opened;
 	private JTabbedPane tabbedPane;
-	private ViewLoader viewLoader;
+	
+	@Autowired
+	public ViewLoader viewLoader;
 	
 	public ViewArea() {
 		opened = new ArrayList<JPanel>();

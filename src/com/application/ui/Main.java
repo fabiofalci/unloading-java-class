@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -21,13 +22,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Main extends JPanel {
 
-	private ViewArea viewArea;
+	@Autowired
+	public ViewArea viewArea;
 	private JFrame frame;
 	private JMenuBar menuBar;
 
 	public void start() {
 		buildMenu();
-		viewArea = new ViewArea();
 		setLayout(new BorderLayout());
 		add(viewArea.getViewComponent());
 		show();

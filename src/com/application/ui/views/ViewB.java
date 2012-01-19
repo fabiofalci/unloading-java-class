@@ -8,10 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * @author Fabio Falci
  *
  */
+@Component("com.application.ui.views.ViewB")
+@Scope("prototype")
 public class ViewB extends JPanel {
 
 	public ViewB() {
