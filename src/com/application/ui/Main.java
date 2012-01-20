@@ -15,6 +15,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.application.classloader.ClasspathInspector;
+import com.application.classloader.ViewClassLoader;
+
 /**
  * @author Fabio Falci
  * 
@@ -27,6 +30,8 @@ public class Main extends JPanel {
 	private JFrame frame;
 	private JMenuBar menuBar;
 
+	private static String viewPackage = "com.application.ui.views";
+	
 	public void start() {
 		buildMenu();
 		setLayout(new BorderLayout());
@@ -75,10 +80,26 @@ public class Main extends JPanel {
 		frame.setVisible(true);
 	}
 
+	public static ClassLoader createClassLoader() {
+		return new ViewClassLoader("./target/classes", viewPackage);
+	}
 
+	static ClasspathInspector classpathInspector = new ClasspathInspector();
+	
 	public static void main(String[] args) {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext(
-				"app-context.xml");
+				"app-context.xml") {
+			private ClassLoader viewClassLoader; 
+			
+			@Override
+			public ClassLoader getClassLoader() {
+				if (viewClassLoader == null || classpathInspector.hasChanged()) {
+					viewClassLoader = createClassLoader();
+					refresh();
+				}
+				return viewClassLoader;
+			}
+		};
 		Main main = appContext.getBean(Main.class);
 		main.start();
 	}

@@ -23,7 +23,7 @@ public class ViewA extends JPanel {
 		setName("ViewA");
 		add(new JLabel("Test View A"));
 		
-		JButton show = new JButton("Show A1");
+		JButton show = new JButton("Show A 1 2");
 		show.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
