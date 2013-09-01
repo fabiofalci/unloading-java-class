@@ -27,6 +27,5 @@ public class ViewB extends JPanel {
 			}
 		});
 		add(show);
-		add(new JButton("Close"));
 	}
 }
